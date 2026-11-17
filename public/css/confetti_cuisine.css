@@ -1,0 +1,197 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+  font-size: 15px;
+  color: #444;
+  background: #fff;
+  line-height: 1.45;
+}
+
+/* Header: centered title, three buttons, thick red bar with a shadow */
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 1.2rem 1rem 1.6rem;
+  background: #fff;
+  border-bottom: 7px solid #e2492a;
+  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.25);
+}
+.navbar a {
+  width: 112px;
+  padding: 0.3rem 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #fff;
+  background: #e2562a;
+  text-decoration: none;
+}
+.navbar a:hover { background: #c44420; }
+.navbar .brand {
+  flex: 0 0 100%;
+  width: auto;
+  margin: 0 0 0.6rem;
+  padding: 0;
+  background: none;
+  font-size: 2.1rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #555;
+}
+.navbar .brand:hover { background: none; }
+
+.container { max-width: 760px; margin: 0 auto; padding: 3rem 1.5rem; }
+h1 { margin-top: 0; }
+.lead { font-size: 1.1rem; color: #555; }
+
+/* Home page: image on the left, text on the right */
+.welcome { display: flex; gap: 1.5rem; align-items: flex-start; }
+.welcome .image-link { flex: 0 0 40%; margin: 0; }
+.welcome .image-link img {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  border-radius: 0;
+  border: 0;
+  transform: none;
+}
+.welcome-text { flex: 1; }
+.welcome-text h1 { font-size: 2.2rem; font-weight: 400; margin: 0 0 0.6rem; }
+.welcome-text p { margin: 0 0 0.8rem; }
+.welcome-text a { color: #222; font-weight: 700; text-decoration: none; }
+.welcome-text a:hover { text-decoration: underline; }
+
+/* Clickable images on the other pages */
+.image-link {
+  display: block;
+  margin-top: 2rem;
+  text-align: center;
+  color: #e2492a;
+  text-decoration: none;
+  font-weight: 500;
+}
+.image-link img {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto 0.5rem;
+  border-radius: 12px;
+  border: 3px solid transparent;
+  transition: transform 0.15s, border-color 0.15s;
+}
+.image-link:hover img { transform: scale(1.03); border-color: #e2492a; }
+
+.course-list { padding-left: 1.2rem; }
+.course-list li { margin: 0.4rem 0; }
+
+.contact-form { display: grid; gap: 0.5rem; max-width: 420px; }
+.contact-form input,
+.contact-form textarea {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font: inherit;
+}
+.contact-form button {
+  margin-top: 0.5rem;
+  padding: 0.7rem;
+  border: 0;
+  border-radius: 6px;
+  background: #e2562a;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.contact-form button:hover { background: #c44420; }
+
+@media (max-width: 600px) {
+  .welcome { flex-direction: column; }
+  .welcome .image-link { flex-basis: auto; width: 100%; }
+}
+
+/* Menu page */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.menu-item {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+}
+.menu-item img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+  border: 3px solid transparent;
+  transition: transform 0.15s, border-color 0.15s;
+}
+.menu-item:hover img { transform: scale(1.03); border-color: #e2492a; }
+
+/* Courses, booking and admin pages */
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.course-card { display: block; text-decoration: none; color: #333; }
+.course-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+}
+.course-card h3 { margin: 0 0 0.25rem; }
+.course-card p { margin: 0; color: #666; }
+.course-card:hover h3 { color: #e2492a; }
+
+.course-detail img { display: block; width: 100%; max-width: 520px; margin: 1rem 0; }
+
+.button {
+  display: inline-block;
+  padding: 0.7rem 1.2rem;
+  background: #e2562a;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 6px;
+}
+.button:hover { background: #c44420; }
+
+.contact-form select {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font: inherit;
+}
+
+.errors {
+  max-width: 420px;
+  margin: 1rem 0;
+  padding: 0.7rem 1.2rem 0.7rem 2rem;
+  color: #b00020;
+  background: #fdecea;
+  border-radius: 6px;
+}
+
+.table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+.table th, .table td {
+  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 1px solid #ddd;
+  vertical-align: top;
+}
+

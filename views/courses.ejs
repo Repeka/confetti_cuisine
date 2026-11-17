@@ -1,0 +1,11 @@
+<h1>Our Courses</h1>
+<p class="lead">Pick a class and reserve your spot.</p>
+<ul class="course-list">
+  <% offeredCourses.forEach(course => { %>
+    <li><strong><%= course.title %></strong> &ndash; <%= course.when %> &ndash; $<%= course.cost %></li>
+  <% }); %>
+</ul>
+<a href="/contact" class="image-link">
+  <img src="/images/couscous.jpg" alt="Contact us to book a class">
+  <span>Click the image to book a class</span>
+</a>

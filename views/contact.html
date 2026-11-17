@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact | Confetti Cuisine</title>
+  <link rel="stylesheet" href="/css/confetti_cuisine.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a class="brand" href="/">Confetti Cuisine</a>
+    <a href="/">Home</a>
+    <a href="/courses.html">Courses</a>
+    <a href="/menu.html">Menu</a>
+    <a href="/contact.html">Contact</a>
+  </nav>
+  <main class="container">
+    <h1>Contact Us</h1>
+    <p class="lead">Tell us which class you want and we will be in touch.</p>
+    <form method="post" action="/messages">
+  <input name="name" placeholder="Your name" required>
+  <input name="email" type="email" placeholder="Your email" required>
+  <textarea name="message" placeholder="Your message" required></textarea>
+  <button type="submit">Send</button>
+</form>
+    <a href="/" class="image-link">
+      <img src="/images/friedchicken.jpg" alt="Back to the home page">
+      <span>Click the image to go home</span>
+    </a>
+  </main>
+  <script src="/js/confettiCuisine.js"></script>
+</body>
+</html>
