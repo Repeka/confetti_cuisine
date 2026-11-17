@@ -6,6 +6,34 @@ const homeController = require("./controllers/homeController");
 const errorController = require("./controllers/errorController");
 const messages = require("./messages");
 
+// Lesson 13: connect to MongoDB with the native driver (temporary; Mongoose replaces this in Lesson 14)
+const { MongoClient } = require("mongodb"),
+  dbURL = "mongodb://localhost:27017",
+  dbName = "confetti_cuisine";
+
+(async () => {
+  const client = new MongoClient(dbURL);
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+
+    // Add a contact once (upsert by email so restarts don't create duplicates)
+    await db.collection("contacts").updateOne(
+      { email: "fred@queen.com" },
+      { $setOnInsert: { name: "Freddie Mercury", email: "fred@queen.com" } },
+      { upsert: true }
+    );
+
+    // Read all contacts and log them
+    const data = await db.collection("contacts").find().toArray();
+    console.log(data);
+  } catch (error) {
+    console.log(`MongoDB error: ${error.message}`);
+  } finally {
+    await client.close();
+  }
+})();
+
 const app = express();
 
 app.set("port", process.env.PORT || 3000);
