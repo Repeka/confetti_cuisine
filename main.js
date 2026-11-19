@@ -6,33 +6,47 @@ const homeController = require("./controllers/homeController");
 const errorController = require("./controllers/errorController");
 const messages = require("./messages");
 
-// Lesson 13: connect to MongoDB with the native driver (temporary; Mongoose replaces this in Lesson 14)
-const { MongoClient } = require("mongodb"),
-  dbURL = "mongodb://localhost:27017",
-  dbName = "confetti_cuisine";
+// Lesson 14: connect to MongoDB with Mongoose (replaces the Lesson 13 native-driver block)
+const mongoose = require("mongoose");
+const Subscriber = require("./models/subscriber");
 
-(async () => {
-  const client = new MongoClient(dbURL);
+mongoose.connect("mongodb://localhost:27017/confetti_cuisine");
+const db = mongoose.connection;
+
+db.once("open", async () => {
+  console.log("Successfully connected to MongoDB using Mongoose!");
+
   try {
-    await client.connect();
-    const db = client.db(dbName);
+    // Create and save a subscriber once (no duplicate on every restart)
+    const existing = await Subscriber.findOne({ email: "jon@jonwexler.com" });
+    if (!existing) {
+      const subscriber1 = new Subscriber({
+        name: "Jon Wexler",
+        email: "jon@jonwexler.com"
+      });
+      console.log("Saved:", await subscriber1.save());
+    }
 
-    // Add a contact once (upsert by email so restarts don't create duplicates)
-    await db.collection("contacts").updateOne(
-      { email: "fred@queen.com" },
-      { $setOnInsert: { name: "Freddie Mercury", email: "fred@queen.com" } },
-      { upsert: true }
-    );
+    // Subscriber.create does new + save in one step
+    const chef = await Subscriber.findOne({ email: "eggplant@confettiCuisine.com" });
+    if (!chef) {
+      console.log(
+        "Created:",
+        await Subscriber.create({
+          name: "Chef Eggplant",
+          email: "eggplant@confettiCuisine.com",
+          zipCode: 20331
+        })
+      );
+    }
 
-    // Read all contacts and log them
-    const data = await db.collection("contacts").find().toArray();
-    console.log(data);
+    // Custom query: find one subscriber named Jon whose email contains "wexler"
+    const wexler = await Subscriber.findOne({ name: "Jon Wexler" }).where("email", /wexler/).exec();
+    if (wexler) console.log("Found:", wexler.name);
   } catch (error) {
-    console.log(`MongoDB error: ${error.message}`);
-  } finally {
-    await client.close();
+    console.log(`Mongoose error: ${error.message}`);
   }
-})();
+});
 
 const app = express();
 
