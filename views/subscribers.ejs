@@ -1,0 +1,8 @@
+<h1>Subscribers</h1>
+<% if (subscribers.length === 0) { %>
+  <p>No subscribers yet. <a href="/subscribe">Be the first to subscribe</a>.</p>
+<% } %>
+<% subscribers.forEach(s => { %>
+  <p><strong><%= s.name %></strong><br>
+     <%= s.email %><% if (s.zipCode) { %> &middot; <%= s.zipCode %><% } %></p>
+<% }); %>
