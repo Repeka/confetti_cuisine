@@ -1,0 +1,23 @@
+<h2>Subscribers Table</h2>
+<% if (subscribers.length === 0) { %>
+  <p>No subscribers yet. <a href="/subscribe">Be the first to subscribe</a>.</p>
+<% } else { %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Zip Code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% subscribers.forEach(subscriber => { %>
+    <tr>
+      <td><%= subscriber.name %></td>
+      <td><%= subscriber.email %></td>
+      <td><%= subscriber.zipCode || "" %></td>
+    </tr>
+    <% }); %>
+  </tbody>
+</table>
+<% } %>

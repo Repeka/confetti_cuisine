@@ -1,0 +1,25 @@
+<h2>Courses Table</h2>
+<% if (courses.length === 0) { %>
+  <p>No courses in the database yet.</p>
+<% } else { %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Items</th>
+      <th>Zip Code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% courses.forEach(course => { %>
+    <tr>
+      <td><%= course.title %></td>
+      <td><%= course.description %></td>
+      <td><%= course.items.join(", ") %></td>
+      <td><%= course.zipCode || "" %></td>
+    </tr>
+    <% }); %>
+  </tbody>
+</table>
+<% } %>

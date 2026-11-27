@@ -3,7 +3,8 @@
 // WARNING: it clears the subscribers and courses collections first.
 const mongoose = require("mongoose"),
   Subscriber = require("./models/subscriber"),
-  Course = require("./models/course");
+    Course = require("./models/course"),
+  User = require("./models/user");
 
 async function run() {
   await mongoose.connect("mongodb://localhost:27017/confetti_cuisine");
@@ -56,6 +57,30 @@ async function run() {
   // 7. findLocalSubscribers instance method (same zip code)
   const local = await testSubscriber.findLocalSubscribers();
   console.log("Local subscribers:", local.map((s) => s.name));
+
+   // ---- Lesson 18: User model ----
+  await User.deleteMany({});
+
+  // 8. Create a user (note the extra space after "Wexler": trim removes it)
+  const testUser = await User.create({
+    name: { first: "Jon", last: "Wexler " },
+    email: "jon@jonwexler.com",
+    password: "pass123" // plain text for this unit only; never use a real password
+  });
+  console.log("User last name saved as:", JSON.stringify(testUser.name.last));
+  console.log("Virtual fullName:", testUser.fullName);
+  console.log("Has createdAt/updatedAt:", Boolean(testUser.createdAt && testUser.updatedAt));
+
+  // 9. Link the user to the subscriber with the same email (one-to-one)
+  const targetSubscriber = await Subscriber.findOne({ email: testUser.email });
+  testUser.subscribedAccount = targetSubscriber;
+  await testUser.save();
+  const linked = await User.findById(testUser._id).populate("subscribedAccount");
+  console.log("Linked subscriber:", linked.subscribedAccount.getInfo());
+
+  // 10. fullName is virtual, so it is not stored in MongoDB
+  const raw = await User.collection.findOne({ _id: testUser._id });
+  console.log("fullName stored in the database?", "fullName" in raw); 
 }
 
 run()

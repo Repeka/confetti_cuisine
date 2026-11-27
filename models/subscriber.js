@@ -1,24 +1,30 @@
 const mongoose = require("mongoose");
 
-const subscriberSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true
+const subscriberSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true
+    },
+    email: {
+      type: String,
+      required: true,
+      lowercase: true,
+      unique: true
+    },
+    zipCode: {
+      type: Number,
+      min: [10000, "Zip code too short"],
+      max: 99999
+    },
+    // many-to-many: a subscriber can be interested in many courses
+    courses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }]
   },
-  email: {
-    type: String,
-    required: true,
-    lowercase: true,
-    unique: true
-  },
-  zipCode: {
-    type: Number,
-    min: [10000, "Zip code too short"],
-    max: 99999
-  },
-  // many-to-many: a subscriber can be interested in many courses
-  courses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }]
-});
+  {
+    // adds createdAt and updatedAt
+    timestamps: true
+  }
+);
 
 // Instance method: one-line summary of a subscriber.
 // Use a normal function (not an arrow function) so "this" is the subscriber.

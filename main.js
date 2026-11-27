@@ -6,6 +6,8 @@ const homeController = require("./controllers/homeController");
 const errorController = require("./controllers/errorController");
 
 const subscribersController = require("./controllers/subscribersController");
+const usersController = require("./controllers/usersController");
+const coursesController = require("./controllers/coursesController");
 const messages = require("./messages");
 
 // Connect to MongoDB with Mongoose (Lesson 14). The Subscriber model is now
@@ -39,11 +41,14 @@ app.get("/contact", homeController.showSignUp);
 // Contact form: save the message (messages.js), then show the thank-you page
 app.post("/contact", messages.saveContactMessage, homeController.postedSignUpForm);
 
-// Lesson 15: newsletter subscribers (saved in MongoDB through the Subscriber model)
-app.get("/subscribers", subscribersController.getAllSubscribers);
+app.get("/subscribers", subscribersController.index, subscribersController.indexView);
 app.get("/subscribe", subscribersController.getSubscriptionPage);
 app.post("/subscribe", subscribersController.saveSubscriber);
 
+// Lesson 18: index pages that list every document of a model.
+// (/courses is already the public course page, so the database list lives at /courses/list)
+app.get("/users", usersController.index, usersController.indexView);
+app.get("/courses/list", coursesController.index, coursesController.indexView);
 // Student "My messages" pages and the admin inbox
 app.use(messages);
 

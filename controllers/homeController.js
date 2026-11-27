@@ -4,22 +4,24 @@ const courses = [
   { title: "Weeknight Stir-Fry", when: "Wednesdays, 18:30", cost: 30 }
 ];
 
-exports.showHome = (req, res) => {
-  res.render("index");
-};
+module.exports = {
+  showHome: (req, res) => {
+    res.render("index");
+  },
 
-exports.showCourses = (req, res) => {
-  res.render("courses", { offeredCourses: courses });
-};
+  showCourses: (req, res) => {
+    res.render("courses", { offeredCourses: courses });
+  },
 
-exports.showMenu = (req, res) => {
-  res.render("menu");
-};
+  showMenu: (req, res) => {
+    res.render("menu");
+  },
 
-exports.showSignUp = (req, res) => {
-  res.render("contact");
-};
+  showSignUp: (req, res) => {
+    res.render("contact");
+  },
 
-exports.postedSignUpForm = (req, res) => {
-  res.render("thanks");
+  postedSignUpForm: (req, res) => {
+    res.render("thanks");
+  }
 };
